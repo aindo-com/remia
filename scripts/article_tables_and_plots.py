@@ -848,10 +848,6 @@ def appendix_quality_vs_privacy_plot(
 
 def quality_vs_privacy_plot(*, df_quality: pd.DataFrame, df_privacy: pd.DataFrame):
 
-    # # only keep the most frequent size
-    # most_frequent_size = df_quality["size"].mode().iloc[0]
-    # df_quality = df_quality[df_quality["size"] == most_frequent_size].copy()
-
     # remove leak experiments
     df_quality = df_quality[~df_quality["generator"].str.startswith("leak")]
 
@@ -860,30 +856,6 @@ def quality_vs_privacy_plot(*, df_quality: pd.DataFrame, df_privacy: pd.DataFram
     df_privacy_quality = pd.merge(
         df_quality, df_privacy, on=["generator", "dataset"], how="inner"
     )
-
-    if False:
-        os.makedirs("article/figures/quality_vs_privacy", exist_ok=True)
-        for metric in df_privacy_quality["metric"].unique():
-            df_metric = df_privacy_quality[df_privacy_quality["metric"] == metric]
-            for dataset in df_metric["dataset"].unique():
-                df_metric_dataset = df_metric[df_metric["dataset"] == dataset].dropna(
-                    subset=["score"]
-                )
-                new_names = {
-                    "xgboost_discr_auc": "Detection",
-                    "xgboost_utility_score": "ML Efficacy",
-                }
-                df_metric_dataset = df_metric_dataset.rename(columns=new_names)
-                for quality_metric in ["Detection", "ML Efficacy"]:
-                    pq_scatter_plot(
-                        dataset=dataset,
-                        privacy_metric=metric,
-                        quality_metric=quality_metric,
-                        df=df_metric_dataset,
-                        file=f"article/figures/quality_vs_privacy/{quality_metric}_vs_{metric}_{dataset}.pdf".replace(
-                            " ", "_"
-                        ).lower(),
-                    )
 
     # Dedicated comparison plot for Adult: Detection vs ReMIA / smMIA.
     adult_quality = df_quality[
@@ -1210,6 +1182,9 @@ def sdgs_runtime():
 
 
 if __name__ == "__main__":
+    os.makedirs("article/tables", exist_ok=True)
+    os.makedirs("article/figures", exist_ok=True)
+    
     df_privacy = get_privacy_results(average_over_seeds=True)
     df_quality = get_quality_results_updated(average_over_seeds=True)
 
