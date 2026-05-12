@@ -1,0 +1,13 @@
+numpy
+pandas
+scikit-learn
+tqdm
+ucimlrepo
+GPUtil
+matplotlib
+scipy
+seaborn
+torch
+xgboost
+aindo-anonymize
+sdv

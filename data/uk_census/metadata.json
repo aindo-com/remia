@@ -1,0 +1,19 @@
+{
+    "Region": "categorical",
+    "Residence Type": "categorical",
+    "Family Composition": "categorical",
+    "Population Base": "categorical",
+    "Sex": "categorical",
+    "Age": "categorical",
+    "Marital Status": "categorical",
+    "Student": "categorical",
+    "Country of Birth": "categorical",
+    "Health": "categorical",
+    "Ethnic Group": "categorical",
+    "Religion": "categorical",
+    "Economic Activity": "categorical",
+    "Occupation": "categorical",
+    "Industry": "categorical",
+    "Hours worked per week": "categorical",
+    "Approximated Social Grade": "categorical"
+}

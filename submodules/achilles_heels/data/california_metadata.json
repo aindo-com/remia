@@ -1,0 +1,65 @@
+[
+    {
+        "name": "MedInc",
+        "type": "Float",
+        "representation": "number",
+        "min": 0.0,
+        "max": 1.0
+    },
+    {
+        "name": "HouseAge",
+        "type": "Float",
+        "representation": "number",
+        "min": 0.0,
+        "max": 1.0
+    },
+    {
+        "name": "AveRooms",
+        "type": "Float",
+        "representation": "number",
+        "min": 0.0,
+        "max": 1.0
+    },
+    {
+        "name": "AveBedrms",
+        "type": "Float",
+        "representation": "number",
+        "min": 0.0,
+        "max": 1.0
+    },
+    {
+        "name": "Population",
+        "type": "Float",
+        "representation": "number",
+        "min": 0.0,
+        "max": 1.0
+    },
+    {
+        "name": "AveOccup",
+        "type": "Float",
+        "representation": "number",
+        "min": 0.0,
+        "max": 1.0
+    },
+    {
+        "name": "Latitude",
+        "type": "Float",
+        "representation": "number",
+        "min": 0.0,
+        "max": 1.0
+    },
+    {
+        "name": "Longitude",
+        "type": "Float",
+        "representation": "number",
+        "min": 0.0,
+        "max": 1.0
+    },
+    {
+        "name": "MedHouseVal",
+        "type": "Float",
+        "representation": "number",
+        "min": 0.0,
+        "max": 1.0
+    }
+]
