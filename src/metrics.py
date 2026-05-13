@@ -634,8 +634,8 @@ def remia(
     config = {
         "training_size": training_size,
         "target_proportion": target_proportion,
-        "max_epochs": 1,
-        "patience": 0,
+        "max_epochs": 1000,
+        "patience": 50,
         "val_each": 2,
         "seed": seed,
     }
