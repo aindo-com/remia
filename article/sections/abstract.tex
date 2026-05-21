@@ -1,0 +1,7 @@
+Tabular data sharing under privacy constraints is increasingly important for research and collaboration. Synthetic data generators (SDGs) are a promising solution, but synthetic data remains vulnerable to attacks, such as membership inference attacks (MIAs), which aim to determine whether a specific record was part of the training data.
+State-of-the-art MIAs are powerful but impractical: they rely on shadow modeling, requiring hundreds of SDG training runs, and need auxiliary data several times larger than the original training set.
+Fast proxy metrics like distance to closest record (DCR) are efficient but have limited sensitivity to MIA risk.
+We introduce ReMIA (Relative Membership Inference Attack), a practical privacy metric that requires only two SDG training runs and additional data no larger than the original training set.
+Rather than predicting whether a record was in the training set, ReMIA generates two synthetic datasets from two source datasets and measures whether a classifier can identify which source a record came from. Experiments across multiple tabular datasets and SDGs show that ReMIA has a sensitivity comparable to state-of-the-art MIAs while being substantially more practical.
+We further observe that SDGs can achieve privacy-utility trade-offs that traditional noise-based anonymization methods do not match.
+Code is available at \url{https://github.com/aindo-com/remia}.

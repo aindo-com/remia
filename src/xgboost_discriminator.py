@@ -29,7 +29,7 @@ def xgboost_discriminator_metrics(
     X = data.drop(columns=["label"])
     y = data["label"]
 
-    # drop_labels from original dataset # TODO: not ideal
+    # drop_labels from original dataset
     del real_data["label"]
     del generated_data["label"]
 

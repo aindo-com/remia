@@ -55,7 +55,7 @@ def quality_results_to_csv(results: list[dict]) -> pd.DataFrame:
         if "xgboost_utility" in d["quality_metrics"]:
             utility_score = d["quality_metrics"]["xgboost_utility"]["relative"]["mean"]
             utility_score = (
-                utility_score["accuracy"]  # TODO: AUC for binary?
+                utility_score["accuracy"]
                 if "accuracy" in utility_score
                 else -utility_score["rmse"]
             )

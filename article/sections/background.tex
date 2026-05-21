@@ -1,0 +1,28 @@
+\section{Background}
+
+\subsection{Synthetic Data Generation}
+Let us consider a dataset $\data$ containing sensitive information where records $x_i$ are samples from an unknown distribution $p(x)$.
+Synthetic data generation is a privacy-enhancing technology (PET) that produces artificial records to share in place of sensitive data. Formally, a synthetic data generator (SDG) is a randomized function $\Phi$ that learns to approximate the underlying distribution that generated $\data$ and samples a new dataset $\data_s = \Phi(\data)$ with similar statistical properties but without revealing the original data.
+The goal of an SDG is to produce synthetic data that is as useful as the original while preserving privacy.
+Various approaches have been proposed for learning generative models for tabular data, such as statistical methods \citep{patki2016synthetic, zhang2017privbayes}, machine learning techniques \citep{nowok2016synthpop, watson2023adversarial}, and deep generative models \citep{kotelnikov2023tabddpm, xu2019modeling, lee2022differentially}.
+
+\subsection{Privacy: Definition and Measurement}
+The concept of privacy in data publishing spans legal, technical, and ethical dimensions. Under the GDPR (General Data Protection Regulation), data is considered anonymous only when it no longer carries the risk of identifying a person. More formally, information about individual records is leaked when it is possible to either (i) isolate a private record in the dataset, (ii) link two or more records concerning the same data subject, or (iii) deduce a sensitive attribute value from a set of other attributes.
+
+In practice, there are two approaches to guarantee the safety of synthetic data.
+One approach consists of designing SDGs that provide formal guarantees of protection, as those following the Differential Privacy (DP) \citep{dwork2006differential} framework, where calibrated noise is added to the private data used by the SDG. However, DP strongly limits the capability of SDGs in terms of fidelity of generated data \citep{adams2025fidelity, stadler2022synthetic}.
+
+The alternative approach consists of empirically assessing the vulnerability of synthetic data a posteriori.
+Methods based on the Distance to Closest Record (DCR) fall into this category \citep{park2018data, kotelnikov2023tabddpm, platzer2021holdout}. These assess leakage by measuring the similarity between the private training data and the synthetic data. Different definitions have been formulated in the literature, commonly based on measuring whether the DCR of training data with respect to the synthetic data is statistically smaller than when compared against a hold-out set of unseen data.
+A common implementation measures the DCR of each record in the training data with respect to the synthetic data, and compares it with the DCR of records in a hold-out set of unseen data of the same size.
+If the DCR to the synthetic data is smaller in significantly more than 50\% of comparisons, then the synthetic data is considered to be leaking information about the training data.
+Despite being popular and computationally efficient, DCR-like metrics have shown limitations in detecting privacy leaks \citep{yao2025dcr}.
+A more robust empirical assessment consists in measuring the effectiveness of adversarial attacks. In particular, we will focus on membership inference attacks (MIAs).
+
+\subsection{Membership Inference Attacks}
+Membership inference attacks (MIAs) \citep{homer2008resolving, shokri2017membership, salem2018ml, stadler2022synthetic, hu2022membership} are a class of linkage attacks where the adversary aims to determine whether a specific record $x$ was part of the private training dataset $\data$ used to train the model $\Phi$ that generated the synthetic data $\data_s = \Phi(\data)$.
+In the common attack setting, the adversary has access to a target record $x \sim p(x)$ that may or may not be part of the training data $\data$ (in simulated attacks $P(x \in \data) = \frac{1}{2}$ is often assumed), the synthetic data $\data_s$, auxiliary data $\data_{\text{aux}}$ sampled from the same distribution as $\data$, and the (untrained) model $\Phi$ \citep{stadler2022synthetic}.
+The vulnerability of a SDG to MIAs is then measured by simulating the attack multiple times and computing the attack's success rate, i.e., the fraction of times the adversary correctly identifies whether $x$ was in $\data$ or not.
+
+MIAs can be implemented in various ways. Current state-of-the-art techniques against synthetic data generators are based on shadow modeling \citep{shokri2017membership}.
+In MIAs based on shadow modeling (smMIAs), the adversary creates multiple shadow datasets $\data_{\text{shadow}}^i$ by sampling $n$ records from auxiliary data $\data_{\text{aux}}$, inserting the target record $x$ in half of them (in place of a random record). Each shadow dataset is used to train $\Phi$ and generate synthetic data $\data_s^i$, forming tuples $(\data_s^i, y^i)$ where $y^i$ indicates whether $x$ was included. A classifier $\phi$ is then trained to predict $y^i$ from $\data_s^i$, and finally applied to $\data_s = \Phi(\data)$ to estimate the probability that $x$ was part of the training data. Attacks differ in the choice of $\phi$ and feature extraction strategy.

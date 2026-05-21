@@ -48,8 +48,7 @@ class StandardScalerNAN:
     def transform(self, data: pd.Series):
         data = data.to_frame()
         data = data.astype(float)
-        data.fillna(data.mean(), inplace=True)  # TODO: add other methods to handle NANs
-        # print(self.preproc.transform(data).shape)
+        data.fillna(data.mean(), inplace=True)
         return self.preproc.transform(data)
 
 

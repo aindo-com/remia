@@ -1,0 +1,26 @@
+\section{Introduction}
+Tabular data is ubiquitous across many fields and plays a fundamental role in scientific discovery and data-driven decision-making.
+However, privacy concerns and regulations such as the European Union's General Data Protection Regulation (GDPR) limit the sharing and use of such data.
+Synthetic data generation (SDG) \citep{jordon2022synthetic, hernandez2022synthetic}, often based on generative models \citep{xu2019modeling}, has emerged as a promising privacy-enhancing technology that allows for the creation and sharing of synthetic datasets that mimic the statistical properties of real data while protecting individual privacy \citep{bellovin2019privacy}.
+Nevertheless, synthetic data is not intrinsically immune to privacy risks, as SDGs may leak information about individual records in the training data \citep{carlini2019secret, stadler2022synthetic}. 
+Hence, being able to evaluate the privacy risk of synthetic data is crucial for its safe deployment \citep{giomi2023unified}, although this has proven challenging \citep{yao2025dcr, stadler2022synthetic}.
+
+Privacy risk of synthetic data can be empirically assessed by evaluating its vulnerability to adversarial attacks, especially membership inference attacks (MIAs) \citep{homer2008resolving, shokri2017membership, salem2018ml, stadler2022synthetic, hu2022membership} where an attacker tries to infer whether a given record was part of the training data used by the model to generate the synthetic data.
+MIAs are a powerful and principled way to assess privacy risk, but they are often computationally intensive and data-hungry.
+In particular, shadow-modeling MIAs require hundreds of SDG training runs and large auxiliary datasets \citep{stadler2022synthetic, houssiau2022tapas, meeus2023achilles}. Alternatives have been proposed, such as DOMIAS \citep{van2023membership} that does not assume access to the generator, but still relies on auxiliary data and potentially expensive density estimation. On the other hand, fast proxy metrics such as distance to the closest record (DCR) \citep{park2018data, kotelnikov2023tabddpm, platzer2021holdout} are computationally efficient but have limited sensitivity to MIA risk \citep{yao2025dcr}.
+Therefore, there is a need for a practical privacy metric that retains MIA-like sensitivity while significantly reducing computational and data requirements. 
+
+We propose a new privacy risk metric, ReMIA (Relative Membership Inference Attack), inspired by MIAs but based on a different attack model: given two synthetic datasets produced by the same SDG from two different private training subsets, the goal of ReMIA is to correctly infer if a given record belongs to the training dataset relative to the first or the second synthetic dataset.
+A high success rate of ReMIA implies that the synthetic datasets, and hence the SDG, are leaking information about the training data.
+ReMIA requires training and generating with the SDG only twice, and the amount of additional data required is at most the size of the training dataset.
+In particular, for a dataset with $n$ records, ReMIA can evaluate privacy while training each SDG instance on at least $\frac{n}{2}$ records, unlike many existing MIAs which require a large auxiliary dataset, meaning only a much smaller fraction of the available data is left for training the generator.
+This makes ReMIA suitable for realistic settings where data is limited and generator training is costly.
+
+We evaluate ReMIA across multiple tabular datasets, SDGs, and privacy metrics. Results show that ReMIA's privacy score is a proxy for the performance of state-of-the-art MIAs, while being substantially more practical to compute.
+As a further empirical finding, we observe that modern SDGs can achieve better privacy-utility trade-offs than traditional noise-based anonymization techniques.
+We summarize our contributions as follows:
+\begin{itemize}
+  \item We propose ReMIA, a practical metric for measuring privacy risk of synthetic data generators, inspired by MIAs but based on a novel attack model, requiring only two synthetic dataset generations and at most as much additional data as the training set.
+  \item We provide an extensive empirical evaluation across several datasets, synthetic data generators and privacy metrics, showing that ReMIA correlates with strong MIA baselines while being significantly more efficient in computation and data usage.
+  \item We show that, according to different privacy metrics, synthetic data can offer a better trade-off between privacy and realism than traditional noise-based anonymization methods.
+\end{itemize}

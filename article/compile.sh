@@ -1,0 +1,1 @@
+latexmk -pdf -interaction=nonstopmode neurips_2026.tex

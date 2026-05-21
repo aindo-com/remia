@@ -1,0 +1,88 @@
+\documentclass{article}
+
+\PassOptionsToPackage{numbers, compress}{natbib}
+
+\usepackage[preprint]{neurips_2026}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}   
+\usepackage{hyperref}      
+\usepackage{url}           
+\usepackage{booktabs}      
+\usepackage{amsfonts}      
+\usepackage{nicefrac}      
+\usepackage{microtype}     
+\usepackage{xcolor}        
+
+\usepackage{amsmath}      
+\usepackage{algorithm}     
+\usepackage{algorithmicx}  
+\usepackage{algpseudocode} 
+\usepackage{dsfont}
+\usepackage{graphicx}      
+\usepackage{siunitx}
+
+\newcommand{\classifier}{\varphi}
+\newcommand{\generator}{\Phi}
+\newcommand{\data}{\mathcal{D}}
+\newcommand{\target}{\mathcal{T}}
+\newcommand{\shared}{\mathcal{R}}
+\newcommand{\train}{\mathcal{X}}
+\newcommand{\synthetic}{\mathcal{S}}
+
+\sisetup{separate-uncertainty=true}
+
+
+\title{ReMIA: a Powerful and Efficient Alternative to Membership Inference Attacks against Synthetic Data Generators}
+
+\author{%
+  Davide Scassola \\
+  Aindo SpA \\
+  Trieste, Italy \\
+  \texttt{davide.scassola1@gmail.com} \\
+  \And
+  Andrea Coser \\
+  Aindo SpA \\
+  Trieste, Italy \\
+  \texttt{andrea@aindo.com} \\
+  \And
+  Sebastiano Saccani \\
+  Aindo SpA \\
+  Trieste, Italy \\
+  \texttt{sebastiano@aindo.com} \\
+}
+
+
+\begin{document}
+
+
+\maketitle
+
+
+\begin{abstract}
+  \input{sections/abstract.tex}
+\end{abstract}
+
+\input{sections/introduction.tex}
+\input{sections/background.tex}
+\input{sections/related_work.tex}
+\input{sections/method.tex}
+\input{sections/experiments.tex}
+\input{sections/discussion.tex}
+
+
+\begin{ack}
+This project was supported by the European Union through grant agreement 101218531 - SyDai.
+\end{ack}
+
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+
+\newpage
+\appendix
+\input{appendix.tex}
+
+
+\end{document}
